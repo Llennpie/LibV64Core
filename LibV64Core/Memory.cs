@@ -69,7 +69,7 @@ namespace LibV64Core
                 return;
 
             emulatorProcess = process;
-            emulatorProcessHandle = OpenProcess(PROCESS_ALL_ACCESS, false, emulatorProcess.Id);
+            emulatorProcessHandle = process.Handle;
         }
 
         /// <summary>
