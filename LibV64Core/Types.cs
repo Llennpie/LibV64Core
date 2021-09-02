@@ -21,7 +21,7 @@ namespace LibV64Core
         public struct ColorPart
         {
             public Light Main;
-            public Light Shade;
+            public Light Shading;
         }
         public struct Light
         {

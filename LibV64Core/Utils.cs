@@ -17,12 +17,15 @@ namespace LibV64Core
         /// <param name="light"></param>
         public static void ApplyLightToAddress(int address, Light light)
         {
-            byte[] rColorData = { BitConverter.GetBytes(light.R)[0] };
-            Memory.WriteBytes(Memory.BaseAddress + address + 3, rColorData);
-            byte[] gColorData = { BitConverter.GetBytes(light.G)[0] };
-            Memory.WriteBytes(Memory.BaseAddress + address + 2, gColorData);
-            byte[] bColorData = { BitConverter.GetBytes(light.B)[0] };
-            Memory.WriteBytes(Memory.BaseAddress + address + 1, bColorData);
+            if (!Memory.IsEmulatorOpen || Memory.BaseAddress == 0)
+                return;
+
+            byte[] colorData = { (byte)light.R, (byte)light.G, (byte)light.B, 0x00 };
+
+            Memory.WriteBytes(Memory.BaseAddress + address, colorData, true);
+            // We also apply the same color data 4 bytes forward.
+            // This is necessary on some N64-accurate graphics plugins, and fixes the per-pixel lighting issue.
+            Memory.WriteBytes(Memory.BaseAddress + address + 4, colorData, true);
         }
 
         /// <summary>

@@ -57,17 +57,17 @@ namespace LibV64Core
                 return;
 
             Utils.ApplyLightToAddress(0x07EC40, colorCode.Shirt.Main);
-            Utils.ApplyLightToAddress(0x07EC38, colorCode.Shirt.Shade);
+            Utils.ApplyLightToAddress(0x07EC38, colorCode.Shirt.Shading);
             Utils.ApplyLightToAddress(0x07EC28, colorCode.Overalls.Main);
-            Utils.ApplyLightToAddress(0x07EC20, colorCode.Overalls.Shade);
+            Utils.ApplyLightToAddress(0x07EC20, colorCode.Overalls.Shading);
             Utils.ApplyLightToAddress(0x07EC58, colorCode.Gloves.Main);
-            Utils.ApplyLightToAddress(0x07EC50, colorCode.Gloves.Shade);
+            Utils.ApplyLightToAddress(0x07EC50, colorCode.Gloves.Shading);
             Utils.ApplyLightToAddress(0x07EC70, colorCode.Shoes.Main);
-            Utils.ApplyLightToAddress(0x07EC68, colorCode.Shoes.Shade);
+            Utils.ApplyLightToAddress(0x07EC68, colorCode.Shoes.Shading);
             Utils.ApplyLightToAddress(0x07EC88, colorCode.Skin.Main);
-            Utils.ApplyLightToAddress(0x07EC80, colorCode.Skin.Shade);
+            Utils.ApplyLightToAddress(0x07EC80, colorCode.Skin.Shading);
             Utils.ApplyLightToAddress(0x07ECA0, colorCode.Hair.Main);
-            Utils.ApplyLightToAddress(0x07EC98, colorCode.Hair.Shade);
+            Utils.ApplyLightToAddress(0x07EC98, colorCode.Hair.Shading);
         }
 
         /// <summary>
@@ -84,17 +84,17 @@ namespace LibV64Core
             // Begin building color code.
 
             colorCode.Shirt.Main = Utils.LoadLightFromAddress(0x07EC40);
-            colorCode.Shirt.Shade = Utils.LoadLightFromAddress(0x07EC38);
+            colorCode.Shirt.Shading = Utils.LoadLightFromAddress(0x07EC38);
             colorCode.Overalls.Main = Utils.LoadLightFromAddress(0x07EC28);
-            colorCode.Overalls.Shade = Utils.LoadLightFromAddress(0x07EC20);
+            colorCode.Overalls.Shading = Utils.LoadLightFromAddress(0x07EC20);
             colorCode.Gloves.Main = Utils.LoadLightFromAddress(0x07EC58);
-            colorCode.Gloves.Shade = Utils.LoadLightFromAddress(0x07EC50);
+            colorCode.Gloves.Shading = Utils.LoadLightFromAddress(0x07EC50);
             colorCode.Shoes.Main = Utils.LoadLightFromAddress(0x07EC70);
-            colorCode.Shoes.Shade = Utils.LoadLightFromAddress(0x07EC68);
+            colorCode.Shoes.Shading = Utils.LoadLightFromAddress(0x07EC68);
             colorCode.Skin.Main = Utils.LoadLightFromAddress(0x07EC88);
-            colorCode.Skin.Shade = Utils.LoadLightFromAddress(0x07EC80);
+            colorCode.Skin.Shading = Utils.LoadLightFromAddress(0x07EC80);
             colorCode.Hair.Main = Utils.LoadLightFromAddress(0x07ECA0);
-            colorCode.Hair.Shade = Utils.LoadLightFromAddress(0x07EC98);
+            colorCode.Hair.Shading = Utils.LoadLightFromAddress(0x07EC98);
 
             return colorCode;
         }
