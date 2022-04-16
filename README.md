@@ -1,6 +1,6 @@
 # LibV64Core
 
-- **LibV64Core** is an experimental C# class library aiming to assist developers with creating *Super Mario 64* machinima tools.
+- **LibV64Core** is an experimental C# class library aiming to assist developers with creating memory-based *Super Mario 64* machinima tools.
 - This library was designed to be as simple and lightweight as possible, while keeping core features intact.
 
 ## Usage
