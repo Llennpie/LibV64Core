@@ -2,6 +2,7 @@
 
 - **LibV64Core** is an experimental C# class library aiming to assist developers with creating memory-based *Super Mario 64* machinima tools.
 - This library was designed to be as simple and lightweight as possible, while keeping core features intact.
+- *Check out [V64CoreConsole](https://github.com/Llennpie/V64CoreConsole), an example console application built using this library.*
 
 ## Usage
 
@@ -30,7 +31,6 @@ namespace SampleToolGui
             Process[] emulatorProcesses = Memory.GetEmulatorProcesses("Project64");
             Memory.HookEmulatorProcess(emulatorProcesses[0]);
             Memory.FindBaseAddress();
-            Core.ReloadPreviousValues();
 
             if (Core.CameraFrozen)
                 Debug.WriteLine("Camera was already frozen!");
