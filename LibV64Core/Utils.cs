@@ -29,7 +29,7 @@ namespace LibV64Core
         }
 
         /// <summary>
-        /// Loads a Light (RGB) from a specified address.
+        /// Creates a Light object from a specified in-game address.
         /// </summary>
         /// <param name="startAddress"></param>
         /// <returns></returns>

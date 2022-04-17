@@ -71,9 +71,9 @@ namespace LibV64Core
         }
 
         /// <summary>
-        /// Loads a color code from the game.
+        /// Returns the current in-game color code as a ColorCode object.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>ColorCode</returns>
         public static ColorCode LoadColorCodeFromGame()
         {
             ColorCode colorCode = new ColorCode();
@@ -98,6 +98,97 @@ namespace LibV64Core
 
             return colorCode;
         }
+
+        /// <summary>
+        /// Converts a GameShark color code string to a ColorCode object.
+        /// </summary>
+        /// <param name="gameshark"></param>
+        /// <returns>ColorCode</returns>
+        public static ColorCode GameSharkToColorCode(string gameshark)
+        {
+            ColorCode colorCode = new ColorCode();
+
+            if (!Memory.IsEmulatorOpen || Memory.BaseAddress == 0 || gameshark == null)
+                return colorCode;
+
+            // Begin building color code.
+            colorCode.Shirt.Main.R = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC40 ") + 6, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Shirt.Main.G = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC40 ") + 8, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Shirt.Main.B = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC42 ") + 6, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Shirt.Shading.R = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC38 ") + 6, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Shirt.Shading.G = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC38 ") + 8, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Shirt.Shading.B = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC3A ") + 6, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Overalls.Main.R = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC28 ") + 6, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Overalls.Main.G = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC28 ") + 8, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Overalls.Main.B = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC2A ") + 6, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Overalls.Shading.R = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC20 ") + 6, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Overalls.Shading.G = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC20 ") + 8, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Overalls.Shading.B = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC22 ") + 6, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Gloves.Main.R = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC58 ") + 6, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Gloves.Main.G = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC58 ") + 8, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Gloves.Main.B = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC5A ") + 6, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Gloves.Shading.R = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC50 ") + 6, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Gloves.Shading.G = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC50 ") + 8, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Gloves.Shading.B = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC52 ") + 6, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Shoes.Main.R = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC70 ") + 6, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Shoes.Main.G = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC70 ") + 8, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Shoes.Main.B = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC72 ") + 6, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Shoes.Shading.R = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC68 ") + 6, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Shoes.Shading.G = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC68 ") + 8, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Shoes.Shading.B = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC6A ") + 6, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Skin.Main.R = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC88 ") + 6, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Skin.Main.G = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC88 ") + 8, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Skin.Main.B = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC8A ") + 6, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Skin.Shading.R = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC80 ") + 6, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Skin.Shading.G = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC80 ") + 8, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Skin.Shading.B = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC82 ") + 6, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Hair.Main.R = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7ECA0 ") + 6, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Hair.Main.G = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7ECA0 ") + 8, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Hair.Main.B = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7ECA2 ") + 6, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Hair.Shading.R = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC98 ") + 6, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Hair.Shading.G = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC98 ") + 8, 2), System.Globalization.NumberStyles.HexNumber);
+            colorCode.Hair.Shading.B = Int32.Parse(gameshark.Substring(gameshark.IndexOf("7EC9A ") + 6, 2), System.Globalization.NumberStyles.HexNumber);
+
+            return colorCode;
+        }
+
+        /// <summary>
+        /// Converts a ColorCode object to a GameShark color code string.
+        /// </summary>
+        /// <param name="colorCode"></param>
+        /// <returns>string</returns>
+        public static string ColorCodeToGameShark(ColorCode colorCode)
+        {
+            if (!Memory.IsEmulatorOpen || Memory.BaseAddress == 0)
+                return null;
+
+            string gameshark = "8107EC40 " + colorCode.Shirt.Main.R.ToString("X2") + colorCode.Shirt.Main.G.ToString("X2") + "\n";
+            gameshark += "8107EC42 " + colorCode.Shirt.Main.B.ToString("X2") + "00\n";
+            gameshark += "8107EC38 " + colorCode.Shirt.Shading.R.ToString("X2") + colorCode.Shirt.Shading.G.ToString("X2") + "\n";
+            gameshark += "8107EC3A " + colorCode.Shirt.Shading.B.ToString("X2") + "00\n";
+            gameshark += "8107EC28 " + colorCode.Overalls.Main.R.ToString("X2") + colorCode.Overalls.Main.G.ToString("X2") + "\n";
+            gameshark += "8107EC2A " + colorCode.Overalls.Main.B.ToString("X2") + "00\n";
+            gameshark += "8107EC20 " + colorCode.Overalls.Shading.R.ToString("X2") + colorCode.Overalls.Shading.G.ToString("X2") + "\n";
+            gameshark += "8107EC22 " + colorCode.Overalls.Shading.B.ToString("X2") + "00\n";
+            gameshark += "8107EC58 " + colorCode.Gloves.Main.R.ToString("X2") + colorCode.Gloves.Main.G.ToString("X2") + "\n";
+            gameshark += "8107EC5A " + colorCode.Gloves.Main.B.ToString("X2") + "00\n";
+            gameshark += "8107EC50 " + colorCode.Gloves.Shading.R.ToString("X2") + colorCode.Gloves.Shading.G.ToString("X2") + "\n";
+            gameshark += "8107EC52 " + colorCode.Gloves.Shading.B.ToString("X2") + "00\n";
+            gameshark += "8107EC70 " + colorCode.Shoes.Main.R.ToString("X2") + colorCode.Shoes.Main.G.ToString("X2") + "\n";
+            gameshark += "8107EC72 " + colorCode.Shoes.Main.B.ToString("X2") + "00\n";
+            gameshark += "8107EC68 " + colorCode.Shoes.Shading.R.ToString("X2") + colorCode.Shoes.Shading.G.ToString("X2") + "\n";
+            gameshark += "8107EC6A " + colorCode.Shoes.Shading.B.ToString("X2") + "00\n";
+            gameshark += "8107EC88 " + colorCode.Skin.Main.R.ToString("X2") + colorCode.Skin.Main.G.ToString("X2") + "\n";
+            gameshark += "8107EC8A " + colorCode.Skin.Main.B.ToString("X2") + "00\n";
+            gameshark += "8107EC80 " + colorCode.Skin.Shading.R.ToString("X2") + colorCode.Skin.Shading.G.ToString("X2") + "\n";
+            gameshark += "8107EC82 " + colorCode.Skin.Shading.B.ToString("X2") + "00\n";
+            gameshark += "8107ECA0 " + colorCode.Hair.Main.R.ToString("X2") + colorCode.Hair.Main.G.ToString("X2") + "\n";
+            gameshark += "8107ECA2 " + colorCode.Hair.Main.B.ToString("X2") + "00\n";
+            gameshark += "8107EC98 " + colorCode.Hair.Shading.R.ToString("X2") + colorCode.Hair.Shading.G.ToString("X2") + "\n";
+            gameshark += "8107EC9A " + colorCode.Hair.Shading.B.ToString("X2") + "00\n";
+
+            return gameshark;
+        }
         #endregion
 
         /// <summary>
@@ -105,6 +196,9 @@ namespace LibV64Core
         /// </summary>
         public static void ReloadPreviousValues()
         {
+            if (!Memory.IsEmulatorOpen || Memory.BaseAddress == 0)
+                return;
+
             byte[] freezeCameraData = Memory.SwapEndian(Memory.ReadBytes(Memory.BaseAddress + 0x33C84B, 1), 4);
 
             if (freezeCameraData[0] == 0x80)
