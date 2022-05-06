@@ -13,25 +13,35 @@ namespace LibV64Core
         public static bool CameraFrozen;
 
         /// <summary>
-        /// Freezes/unfreezes the game camera. Defaults to true.
+        /// Freezes/unfreezes the game camera.
         /// </summary>
-        /// <param name="freeze"></param>
-        public static void FreezeCamera(bool freeze = true)
+        public static void ToggleFreezeCamera()
         {
             if (!Memory.IsEmulatorOpen || Memory.BaseAddress == 0)
                 return;
 
-            if (freeze) {
-                byte[] writeData = { 0x80 };
-                Memory.WriteBytes(Memory.BaseAddress + 0x33C84B, writeData);
-                CameraFrozen = true;
-            }
-            else
+            // First, fetch the address to determine the current state of the camera
+            int freezeCameraData = Memory.SwapEndian(Memory.ReadBytes(Memory.BaseAddress + 0x33C84B, 1), 4)[0];
+
+            // If the camera contains 0x80 (the pause movement flag), the camera is already frozen
+            CameraFrozen = (freezeCameraData & 128) == 128;
+
+            if (CameraFrozen)
             {
-                byte[] writeData = { 0x00 };
-                Memory.WriteBytes(Memory.BaseAddress + 0x33C84B, writeData);
-                CameraFrozen = false;
+                // Unfreeze the camera
+                byte[] writeFreezeData = BitConverter.GetBytes(freezeCameraData - 128);
+                Memory.WriteBytes(Memory.BaseAddress + 0x33C84B, writeFreezeData);
+                Console.WriteLine("[C] Camera Unfrozen");
+            } else
+            {
+                // Freeze the camera
+                byte[] writeFreezeData = BitConverter.GetBytes(freezeCameraData + 128);
+                Memory.WriteBytes(Memory.BaseAddress + 0x33C84B, writeFreezeData);
+                Console.WriteLine("[C] Camera Frozen");
             }
+
+            // One last check for the pause movement flag
+            CameraFrozen = (freezeCameraData & 128) == 128;
         }
 
         /// <summary>
@@ -43,6 +53,53 @@ namespace LibV64Core
                 return;
 
             Memory.WriteBytes(Memory.BaseAddress + 0x32F870, new byte[20]);
+        }
+        #endregion
+
+        #region Mario States
+        /// <summary>
+        /// Zero-fills the function "mario_reset_bodystate", allowing eye/hand/cap states to be manually overwritten.
+        /// </summary>
+        public static void FixResetBodyState()
+        {
+            if (!Memory.IsEmulatorOpen || Memory.BaseAddress == 0)
+                return;
+
+            Memory.WriteBytes(Memory.BaseAddress + 0x254338, new byte[88]);
+        }
+
+        public static EyeState CurrentEyeState;
+        public static HandState CurrentHandState;
+
+        /// <summary>
+        /// Sets the current eye state.
+        /// </summary>
+        /// <param name="eyeState"></param>
+        public static void SetEyeState(EyeState eyeState)
+        {
+            if (!Memory.IsEmulatorOpen || Memory.BaseAddress == 0)
+                return;
+
+            byte[] writeEyeStateData = BitConverter.GetBytes((int)eyeState);
+            Memory.WriteBytes(Memory.BaseAddress + 0x33B3B6, writeEyeStateData);
+            CurrentEyeState = eyeState;
+        }
+
+        /// <summary>
+        /// Sets the current hand state.
+        /// </summary>
+        /// <param name="handState"></param>
+        public static void SetHandState(HandState handState)
+        {
+            if (!Memory.IsEmulatorOpen || Memory.BaseAddress == 0)
+                return;
+
+            byte[] writeHandStateData = BitConverter.GetBytes((int)handState);
+            Memory.WriteBytes(Memory.BaseAddress + 0x33B3B5, writeHandStateData);
+            CurrentHandState = handState;
+
+            // SetHandState sometimes overrides the eye state, so we set it once more.
+            SetEyeState(CurrentEyeState);
         }
         #endregion
 
@@ -192,17 +249,26 @@ namespace LibV64Core
         #endregion
 
         /// <summary>
-        /// Reloads all core values (such as CameraFrozen) from their in-game addresses. Useful when the tool relaunches after values were modified.
+        /// Main core update loop.
         /// </summary>
-        public static void ReloadPreviousValues()
+        public static void CoreUpdate()
         {
             if (!Memory.IsEmulatorOpen || Memory.BaseAddress == 0)
                 return;
 
-            byte[] freezeCameraData = Memory.SwapEndian(Memory.ReadBytes(Memory.BaseAddress + 0x33C84B, 1), 4);
+            // Previous values
 
-            if (freezeCameraData[0] == 0x80)
-                CameraFrozen = true;
+            int freezeCameraData = Memory.SwapEndian(Memory.ReadBytes(Memory.BaseAddress + 0x33C84B, 1), 4)[0];
+            CameraFrozen = (freezeCameraData & 128) == 128;
+
+            // Prevent C-Up from locking the freeze camera
+
+            if (freezeCameraData == 162)
+            {
+                byte[] writeCUpData = BitConverter.GetBytes(freezeCameraData - 34);
+                Memory.WriteBytes(Memory.BaseAddress + 0x33C84B, writeCUpData);
+                Console.WriteLine("help");
+            }
         }
     }
 }

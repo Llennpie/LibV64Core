@@ -8,6 +8,15 @@ namespace LibV64Core
 {
     public class Types
     {
+        #region Mario States
+        public enum EyeState {
+            BLINKING, OPEN, HALF, CLOSED, LEFT, RIGHT, UP, DOWN, DEAD
+        }
+        public enum HandState {
+            FISTS, OPEN, PEACE, WITH_CAP, WITH_WING_CAP, RIGHT_OPEN
+        }
+        #endregion
+
         #region Color Codes
         public struct ColorCode
         {
