@@ -6,7 +6,7 @@
 
 ## Usage
 
-First, add **LibV64Core** to your existing tool's project. In **Visual Studio 2019**:
+First, add **LibV64Core** to your existing tool's project. In **Visual Studio 2022**:
 - Right click your Solution in the Solution Explorer and navigate to *Add -> Existing Project...*
 - Select `LibV64Core.csproj`.
 - Right click your tool's project in the Solution Explorer and navigate to *Add -> Reference...*
