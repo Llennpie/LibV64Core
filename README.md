@@ -31,9 +31,9 @@ namespace SampleToolGui
             Process[] emulatorProcesses = Memory.GetEmulatorProcesses("Project64");
             Memory.HookEmulatorProcess(emulatorProcesses[0]);
             Memory.FindBaseAddress();
-
-            if (Core.CameraFrozen)
-                Debug.WriteLine("Camera was already frozen!");
+            
+            // Freeze the camera
+            Core.ToggleFreezeCamera();
 
             Core.FixCameraZoomOut();
         }
