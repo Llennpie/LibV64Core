@@ -1,5 +1,7 @@
 # LibV64Core
 
+[![.NET](https://github.com/Llennpie/LibV64Core/actions/workflows/dotnet.yml/badge.svg)](https://github.com/Llennpie/LibV64Core/actions/workflows/dotnet.yml)
+
 - **LibV64Core** is an experimental C# class library aiming to assist developers with creating memory-based *Super Mario 64* machinima tools.
 - This library was designed to be as simple and lightweight as possible, while keeping core features intact.
 - *Check out [V64CoreConsole](https://github.com/Llennpie/V64CoreConsole), an example console application built using this library.*
@@ -43,7 +45,11 @@ namespace SampleToolGui
 
 Documentation is coming soon.
 
+---
+
 ## Credits
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/J3J05B5WR)
 
 - *[Project Comet](https://github.com/projectcomet64)* and *[GlitchyPSI](https://github.com/GlitchyPSIX)* for creating [M64MM3](https://github.com/projectcomet64/M64MM).
 - *[James "CaptainSwag101" Pelster](https://github.com/jpmac26)* for creating [M64MM2](https://github.com/jpmac26/M64MM2).
