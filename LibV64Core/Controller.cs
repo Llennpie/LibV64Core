@@ -53,11 +53,12 @@ namespace LibV64Core
         {
             while (true)
             {
-                Thread.Sleep(time);
-                alreadyPressed = false;
+                if (alreadyPressed)
+                {
+                    Thread.Sleep(time);
+                    alreadyPressed = false;
+                }
             }
-
-            return Task.CompletedTask;
         }
     }
 }
