@@ -42,15 +42,6 @@ namespace LibV64Core
             }
         }
 
-        public static bool HasExitedGame()
-        {
-            FindBaseAddress();
-            if (BaseAddress == 0)
-                return true;
-
-            return false;
-        }
-
         #region Processes
         /// <summary>
         /// Returns an array of emulator processes by name. Defaults to "Project64".
